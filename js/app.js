@@ -1,7 +1,10 @@
 // Card array that holds all cards
+let card = document.getElementsByClassName("card");
+let cards = [...card]
+console.log(cards);
 
-const card = document.getElementByClassName("card");
-const cards = [...card];
+// Card deck of all the cards in the game.
+const deck = document.getElementById("card-deck");
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
