@@ -1,8 +1,7 @@
-/*
- * Create a list that holds all of your cards
- */
+// Card array that holds all cards
 
-
+const card = document.getElementByClassName("card");
+const cards = [...card];
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
