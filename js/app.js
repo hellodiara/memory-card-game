@@ -49,8 +49,14 @@ function startGame() {
 
 }
 
+// Display Cards
+var showCard = function () {
+	this.classList.toggle("open");
+	this.classList.toggle("show");
+	this.classList.toggle("disabled");
+};
 // Event listener for when a card is clicked:
- document.querySelectorAll(".card").addEventListener("click", displayCard);
+ document.querySelectorAll(".card").addEventListener("click", showCard);
 
  /*  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
