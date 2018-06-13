@@ -10,6 +10,9 @@ const deck = document.getElementById("card-deck");
 let moves = 0;
 let counter = document.querySelector(".moves");
 
+// Matched Cards
+let matchedCard = document.getElementsByClassName("match");
+
 /*
 
  * Display the cards on the page
