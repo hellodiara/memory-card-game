@@ -57,6 +57,8 @@ var showCard = function () {
 };
 // Event listener for when a card is clicked:
  document.querySelectorAll(".card").addEventListener("click", showCard);
+ document.querySelectorAll(".card").addEventListener("click", openCard);
+ document.querySelectorAll(".card").addEventListener("click", congrats);
 
  /*  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
