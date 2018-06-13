@@ -10,8 +10,14 @@ const deck = document.getElementById("card-deck");
 let moves = 0;
 let counter = document.querySelector(".moves");
 
-// Matched Cards
+// Matched Cards variable
 let matchedCard = document.getElementsByClassName("match");
+
+// Star icons variable
+const stars = document.querySelectorAll(".fa-star");
+
+// List of stars variable
+ let listOfStars = document.querySelectorAll(".stars li");
 
 /*
 
