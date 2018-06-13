@@ -6,6 +6,10 @@ console.log(cards);
 // Card deck of all the cards in the game.
 const deck = document.getElementById("card-deck");
 
+// Moves
+let moves = 0;
+let counter = document.querySelector(".moves");
+
 /*
 
  * Display the cards on the page
