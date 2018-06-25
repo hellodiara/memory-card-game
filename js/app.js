@@ -9,6 +9,10 @@ var cards = [ 'fa-diamond' , 'fa-diamond',
             'fa-bomb', 'fa-bomb'
 ];
 
+function generateCard(card) {
+    return '<li class='card'><i class='fa $(card)'></i></li>';
+}
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
