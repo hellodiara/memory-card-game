@@ -3,9 +3,9 @@ var cards = [ 'fa-diamond' , 'fa-diamond',
             'fa-paper-plane-o', 'fa-paper-plane-o',
             'fa-anchor', 'fa-anchor',
             'fa-bolt', 'fa-bolt',
-            'fa-cube', 'fa-cube'
+            'fa-cube', 'fa-cube',
             'fa-leaf', 'fa-leaf',
-            'fa-bicycle', 'fa-bicycle'
+            'fa-bicycle', 'fa-bicycle',
             'fa-bomb', 'fa-bomb'
 ];
 
@@ -26,11 +26,11 @@ function shuffle(array) {
 
 function initGame() {
     var deck = document.querySelector('.deck');
-    var cardHTML = cards.map(function(card) {
+    var cardHTML = shuffle(cards).map(function(card) {
         return generateCard(card);
     });
-    
-    deck innerText(cardHTML.join(''));
+
+    deck.innerHTML = cardHTML.join('');
 }
 
 initGame();
@@ -45,8 +45,8 @@ initGame();
  */
 
 // Display the card's symbol when clicked
-let allCards = document.querySelectorAll('.card');
-let openCards = [];
+var allCards = document.querySelectorAll('.card');
+var openCards = [];
 
 allCards.forEach(function(card) {
     card.addEventListener('click' , function(e) {
@@ -55,7 +55,7 @@ allCards.forEach(function(card) {
         card.classList.add('open' , 'show');
 
         //Check if the cards match
-        let firstCardType = openCards[0].dataset.card;
+        var firstCardType = openCards[0].dataset.card;
         console.log(firstCardType);
 
         //Cards disappear if they don't match
