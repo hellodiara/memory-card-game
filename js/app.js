@@ -1,4 +1,13 @@
-
+// List that holds all the cards
+var cards = [ 'fa-diamond' , 'fa-diamond',
+            'fa-paper-plane-o', 'fa-paper-plane-o',
+            'fa-anchor', 'fa-anchor',
+            'fa-bolt', 'fa-bolt',
+            'fa-cube', 'fa-cube'
+            'fa-leaf', 'fa-leaf',
+            'fa-bicycle', 'fa-bicycle'
+            'fa-bomb', 'fa-bomb'
+];
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -15,6 +24,17 @@ function shuffle(array) {
     return array;
 }
 
+function initGame() {
+    var deck = document.querySelector('.deck');
+    var cardHTML = cards.map(function(card) {
+        return generateCard(card);
+    });
+    
+    deck innerText(cardHTML.join(''));
+}
+
+initGame();
+
  /*  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
@@ -29,13 +49,27 @@ let allCards = document.querySelectorAll('.card');
 let openCards = [];
 
 allCards.forEach(function(card) {
-    card.addEventListener('click' , function(e){
+    card.addEventListener('click' , function(e) {
+        if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
         openCards.push(card);
-        if (openCards.length >=2){
-            // Hide the card
-        } else {
-            card.classList.add('open' , 'show');
+        card.classList.add('open' , 'show');
+
+        //Check if the cards match
+        let firstCardType = openCards[0].dataset.card;
+        console.log(firstCardType);
+
+        //Cards disappear if they don't match
+        if (openCards.length >=2)  {
+            setTimeout(function(){
+                openCards.forEach(function(card) {
+                    card.classList.remove('open' , 'show');
+                });
+
+                openCards = [];
+            }, 1000);
         }
+
+    }
         
     });
  });
