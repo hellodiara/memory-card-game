@@ -1,16 +1,16 @@
 // List that holds all the cards
-var cards = [ 'fa-diamond' , 'fa-diamond',
+var cards = ['fa-diamond' , 'fa-diamond',
             'fa-paper-plane-o', 'fa-paper-plane-o',
             'fa-anchor', 'fa-anchor',
             'fa-bolt', 'fa-bolt',
             'fa-cube', 'fa-cube',
             'fa-leaf', 'fa-leaf',
             'fa-bicycle', 'fa-bicycle',
-            'fa-bomb', 'fa-bomb'
+            'fa-bomb', 'fa-bomb',
 ];
 
 function generateCard(card) {
-    return '<li class='card'><i class='fa $(card)'></i></li>';
+    return '<li class="card" data-card="' + card + '"><i class="fa ' + card + '"></i></li>' ;
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -54,9 +54,22 @@ var openCards = [];
 
 allCards.forEach(function(card) {
     card.addEventListener('click' , function(e) {
+
         if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
         openCards.push(card);
         card.classList.add('open' , 'show');
+            if (openCards.length == 2) {
+                if (openCards[0].dataset.card == openCards[1].dataset.card) {
+                    openCards[0].classList.add('match');
+                    openCards[0].classList.add('open');
+                    openCards[0].classList.add('show');
+
+                    openCards[1].classList.add('match');
+                    openCards[1].classList.add('open');
+                    openCards[1].classList.add('show');
+                }
+
+            }
 
         //Check if the cards match
         var firstCardType = openCards[0].dataset.card;
@@ -64,6 +77,9 @@ allCards.forEach(function(card) {
 
         //Cards disappear if they don't match
         if (openCards.length >=2)  {
+            if (openCards)
+
+            //If cards don't match hide
             setTimeout(function(){
                 openCards.forEach(function(card) {
                     card.classList.remove('open' , 'show');
