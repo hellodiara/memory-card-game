@@ -27,7 +27,10 @@ function shuffle(array) {
 
     return array;
 }
+//shuffle cards when page is refreshed
+document.body.onload = initGame();
 
+//Start a new game
 function initGame() {
     var deck = document.querySelector('.deck');
     var cardHTML = shuffle(cards).map(function(card) {
@@ -67,6 +70,8 @@ allCards.forEach(function(card) {
                     openCards[1].classList.add('match');
                     openCards[1].classList.add('open');
                     openCards[1].classList.add('show');
+                } else {
+
                 }
 
             }
@@ -77,7 +82,6 @@ allCards.forEach(function(card) {
 
         //Cards disappear if they don't match
         if (openCards.length >=2)  {
-            if (openCards)
 
             //If cards don't match hide
             setTimeout(function(){
