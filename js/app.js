@@ -62,6 +62,7 @@ allCards.forEach(function(card) {
         openCards.push(card);
         card.classList.add('open' , 'show');
             if (openCards.length == 2) {
+                addMove();
                 if (openCards[0].dataset.card == openCards[1].dataset.card) {
                     openCards[0].classList.add('match');
                     openCards[0].classList.add('open');
@@ -97,3 +98,10 @@ allCards.forEach(function(card) {
         
     });
  });
+// Counts moves 
+let moves = 0;
+function addMove(){
+    moves++;
+    const movesText = document.querySelector('.moves');
+    movesText.innerHTML = moves;
+}
