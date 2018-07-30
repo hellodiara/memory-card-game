@@ -105,3 +105,9 @@ function addMove(){
     const movesText = document.querySelector('.moves');
     movesText.innerHTML = moves;
 }
+// Star Rating
+function checkScore(){
+    if (moves === 16 || moves === 24) {
+        removeStar();
+    }
+}
