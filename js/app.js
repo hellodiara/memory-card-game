@@ -61,8 +61,9 @@ allCards.forEach(function(card) {
         if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
         openCards.push(card);
         card.classList.add('open' , 'show');
-            if (openCards.length == 2) {
+            if (openCards.length === 2) {
                 addMove();
+                checkScore();
                 if (openCards[0].dataset.card == openCards[1].dataset.card) {
                     openCards[0].classList.add('match');
                     openCards[0].classList.add('open');
@@ -107,7 +108,20 @@ function addMove(){
 }
 // Star Rating
 function checkScore(){
+    // Take off 1 star if you make 16 moves, 2 if you make 24
     if (moves === 16 || moves === 24) {
-        removeStar();
+        hideStar();
     }
 }
+// Hides the star
+function hideStar(){
+    const starList = document.querySelectorAll('.stars li');
+    for (star of starList) {
+        if (star.style.display !== 'none') {
+            star.style.display = 'none';
+            break;
+        }
+    }
+}
+
+
