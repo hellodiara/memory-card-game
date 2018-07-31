@@ -222,6 +222,7 @@ function resetGame() {
     resetMoves();
     resetStars();
     shuffleDeck();
+    resetCards();
 }
 
 // Resets the clock
