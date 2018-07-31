@@ -1,9 +1,6 @@
-/*
- * Create a list that holds all of your cards
- */
-
 // Global
 const deck = document.querySelector('.deck');
+let toggleCards = []; // store all cards in an array
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -37,12 +34,35 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
  deck.addEventListener('click', event => {
     const clickTarget = event.target;
-    if (clickTarget.classList.contains('card')) {
-        clickTarget.classList.toggle('open');
-        clickTarget.classList.toggle('show');
+    if (clickTarget.classList.contains('card') && toggleCards.length < 2) {
+        toggleCard(clickTarget);
+        addToggleCard(clickTarget);
+        if (toggleCards.length === 2) {
+            console.log('2 cards!');
+        }
     }
  });
 
-
+// Function to toggle cards
+function toggleCard(clickTarget){
+    clickTarget.classList.toggle('open');
+    clickTarget.classList.toggle('show');
+ }
+// Function to push clickTarget into toggleCards array
+function addToggleCard(clickTarget) {
+    toggleCards.push(clickTarget);
+    console.log(toggleCards);
+}
+// Function to check if the cards match
+function checkMatch() {
+    if (
+        toggleCards[0].firstElementChild.className === toggleCards[1].firstElementChild.className
+        ) {
+        console.log('Match!');
+    } else {
+        console.log('Not a match!');
+    }
+}
