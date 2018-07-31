@@ -91,9 +91,23 @@ function checkMatch() {
     }, 1000);
 }
 }
-// Moves function for scoreboard
+// Function that counts moves for scoreboard
 function addMove() {
     moves++;
     const movesText = document.querySelector('.moves');
     movesText.innerHTML = moves;
 }
+// Stars
+function checkScore() {
+    if (moves === 16 || moves === 24) {
+        removeStar();
+    }
+}
+// Hides Stars
+function hideStar() {
+    const starList = document.querySelectorAll('.stars li');
+    for (star of starList) {
+        start.style.display = 'none';
+    }
+}
+hideStar();
