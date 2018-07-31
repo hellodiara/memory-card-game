@@ -40,9 +40,9 @@ function shuffle(array) {
  deck.addEventListener('click', event => {
     const clickTarget = event.target;
     if (clickTarget.classList.contains('card')) {
-        console.log("I'm a card!");
+        clickTarget.classList.toggle('open');
+        clickTarget.classList.toggle('show');
     }
  });
 
 
- 
