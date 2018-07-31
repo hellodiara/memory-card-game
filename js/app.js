@@ -149,7 +149,6 @@ function toggleModal() {
     const modal = document.querySelector('.modal_background');
     modal.classList.toggle('hide');
 }
-toggleModal();
 
 function writeModalStats() {
     const timeStat = document.querySelector('.modal_time');
