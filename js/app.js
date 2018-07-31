@@ -7,6 +7,10 @@ let toggleCards = []; // store all cards in an array
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+ function shuffleDeck() {
+    const cardsToShuffle = document.querySelectorAll('.deck li');
+ }
+ shuffleDeck();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -37,19 +41,29 @@ function shuffle(array) {
 
  deck.addEventListener('click', event => {
     const clickTarget = event.target;
-    if (clickTarget.classList.contains('card') && toggleCards.length < 2) {
+    if (isMoveValid(clickTarget
+        )) {
         toggleCard(clickTarget);
         addToggleCard(clickTarget);
         if (toggleCards.length === 2) {
-            console.log('2 cards!');
+            checkMatch(clickTarget);
         }
     }
  });
 
+//Function to check that target doesnt contain class "card" & match", not more than 2 cards
+function isMoveValid(clickTarget) {
+    return (
+            clickTarget.classList.contains('card') && 
+            !clickTarget.classList.contains('match') &&
+            toggleCards.length < 2 &&
+            !toggleCards.includes(clickTarget)
+        );
+}
 // Function to toggle cards
-function toggleCard(clickTarget){
-    clickTarget.classList.toggle('open');
-    clickTarget.classList.toggle('show');
+function toggleCard(card){
+    card.classList.toggle('open');
+    card.classList.toggle('show');
  }
 // Function to push clickTarget into toggleCards array
 function addToggleCard(clickTarget) {
@@ -60,9 +74,14 @@ function addToggleCard(clickTarget) {
 function checkMatch() {
     if (
         toggleCards[0].firstElementChild.className === toggleCards[1].firstElementChild.className
-        ) {
-        console.log('Match!');
+        ) { // Toggle match class
+            toggleCards[0].classList.toggle('match');
+            toggleCards[1].classList.toggle('match');  
     } else {
-        console.log('Not a match!');
-    }
+        setTimeout(() => {
+            toggleCard(toggleCards[0]);
+            toggleCard(toggleCards[1]);
+            toggleCards = [];
+    }, 1000);
+}
 }
