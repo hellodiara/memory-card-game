@@ -1,17 +1,14 @@
-// List that holds all the cards
-var cards = ['fa-diamond' , 'fa-diamond',
-            'fa-paper-plane-o', 'fa-paper-plane-o',
-            'fa-anchor', 'fa-anchor',
-            'fa-bolt', 'fa-bolt',
-            'fa-cube', 'fa-cube',
-            'fa-leaf', 'fa-leaf',
-            'fa-bicycle', 'fa-bicycle',
-            'fa-bomb', 'fa-bomb',
-];
+/*
+ * Create a list that holds all of your cards
+ */
 
-function generateCard(card) {
-    return '<li class="card" data-card="' + card + '"><i class="fa ' + card + '"></i></li>' ;
-}
+
+/*
+ * Display the cards on the page
+ *   - shuffle the list of cards using the provided "shuffle" method below
+ *   - loop through each card and create its HTML
+ *   - add each card's HTML to the page
+ */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -27,22 +24,11 @@ function shuffle(array) {
 
     return array;
 }
-//shuffle cards when page is refreshed
-document.body.onload = initGame();
 
-//Start a new game
-function initGame() {
-    var deck = document.querySelector('.deck');
-    var cardHTML = shuffle(cards).map(function(card) {
-        return generateCard(card);
-    });
 
-    deck.innerHTML = cardHTML.join('');
-}
-
-initGame();
-
- /*  - display the card's symbol (put this functionality in another function that you call from this one)
+/*
+ * set up the event listener for a card. If a card is clicked:
+ *  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
@@ -50,78 +36,3 @@ initGame();
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-// Display the card's symbol when clicked
-var allCards = document.querySelectorAll('.card');
-var openCards = [];
-
-allCards.forEach(function(card) {
-    card.addEventListener('click' , function(e) {
-
-        if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
-        openCards.push(card);
-        card.classList.add('open' , 'show');
-            if (openCards.length === 2) {
-                addMove();
-                checkScore();
-                if (openCards[0].dataset.card == openCards[1].dataset.card) {
-                    openCards[0].classList.add('match');
-                    openCards[0].classList.add('open');
-                    openCards[0].classList.add('show');
-
-                    openCards[1].classList.add('match');
-                    openCards[1].classList.add('open');
-                    openCards[1].classList.add('show');
-                } else {
-
-                }
-
-            }
-
-        //Check if the cards match
-        var firstCardType = openCards[0].dataset.card;
-        console.log(firstCardType);
-
-        //Cards disappear if they don't match
-        if (openCards.length >=2)  {
-
-            //If cards don't match hide
-            setTimeout(function(){
-                openCards.forEach(function(card) {
-                    card.classList.remove('open' , 'show');
-                });
-
-                openCards = [];
-            }, 1000);
-        }
-
-    }
-        
-    });
- });
-// Counts moves 
-let moves = 0;
-function addMove(){
-    moves++;
-    const movesText = document.querySelector('.moves');
-    movesText.innerHTML = moves;
-}
-// Star Rating
-function checkScore(){
-    // Take off 1 star if you make 16 moves, 2 if you make 24
-    if (moves === 16 || moves === 24) {
-        hideStar();
-    }
-}
-// Hides the star
-function hideStar(){
-    const starList = document.querySelectorAll('.stars li');
-    for (star of starList) {
-        if (star.style.display !== 'none') {
-            star.style.display = 'none';
-            break;
-        }
-    }
-}
-
-
