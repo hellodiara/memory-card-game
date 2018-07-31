@@ -1,6 +1,7 @@
 // Global
 const deck = document.querySelector('.deck');
 let toggleCards = []; // store all cards in an array
+let moves = 0;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -51,6 +52,7 @@ function shuffle(array) {
         addToggleCard(clickTarget);
         if (toggleCards.length === 2) {
             checkMatch(clickTarget);
+            addMove();
         }
     }
  });
@@ -88,4 +90,10 @@ function checkMatch() {
             toggleCards = [];
     }, 1000);
 }
+}
+// Moves function for scoreboard
+function addMove() {
+    moves++;
+    const movesText = document.querySelector('.moves');
+    movesText.innerHTML = moves;
 }
