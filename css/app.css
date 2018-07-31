@@ -107,3 +107,25 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+/*
+ * Styles for Modal Popup
+ */
+ .modal_background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: (0, 0, 0, 0.438); /* See through effect */
+ }
+ .modal_body {
+    position: relative;
+    top: 400px;
+    left: 400px;
+    height: 50%;
+    width: 50%;
+    background: #ffffff; /* See through effect */
+    transform: translate(-50%, -70%);
+ }
+
