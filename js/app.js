@@ -53,6 +53,7 @@ function shuffle(array) {
         if (toggleCards.length === 2) {
             checkMatch(clickTarget);
             addMove();
+            checkScore();
         }
     }
  });
@@ -107,7 +108,9 @@ function checkScore() {
 function hideStar() {
     const starList = document.querySelectorAll('.stars li');
     for (star of starList) {
-        start.style.display = 'none';
+        if (star.style.display !== 'none') {
+            star.style.display = 'none';
+            break;
+        }
     }
 }
-hideStar();
