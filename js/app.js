@@ -1,18 +1,20 @@
-// Global
+// -------GLOBAL --------
 const deck = document.querySelector('.deck');
-let toggleCards = []; // store all cards in an array
+let toggledCards = []; // store all cards in an array
 let moves = 0;
-
 // Global variables for clock
 let clockOff = true;
 let time = 0;
 let clockId;
+let matched = 0;
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
  function shuffleDeck() {
     const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
     const shuffledCards = shuffle(cardsToShuffle);
@@ -37,7 +39,6 @@ function shuffle(array) {
     return array;
 }
 
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -51,15 +52,15 @@ function shuffle(array) {
 
  deck.addEventListener('click', event => {
     const clickTarget = event.target;
-    if (isMoveValid(clickTarget)) {
+    if (isClickValid(clickTarget)) {
         if (clockOff) {
             startClock();
             clockOff = false;
         }
         toggleCard(clickTarget);
         addToggleCard(clickTarget);
-        if (toggleCards.length === 2) {
-            checkMatch(clickTarget);
+        if (toggledCards.length === 2) {
+            checkForMatch();
             addMove();
             checkScore();
         }
@@ -67,52 +68,126 @@ function shuffle(array) {
  });
 
 //Function to check that target doesnt contain class "card" & match", not more than 2 cards
-function isMoveValid(clickTarget) {
+function isClickValid(clickTarget) {
     return (
             clickTarget.classList.contains('card') && 
             !clickTarget.classList.contains('match') &&
-            toggleCards.length < 2 &&
-            !toggleCards.includes(clickTarget)
+            toggledCards.length < 2 &&
+            !toggledCards.includes(clickTarget)
         );
 }
+
+// Clock functionality
+function startClock() {
+    clockId = setInterval(() => {
+        time++;
+        displayTime();
+    }, 1000);
+}
+
+// Displays the current time in the scoreboard
+function displayTime() {
+    const clock = document.querySelector('.clock');
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    if (seconds < 10) {
+        clock.innerHTML = `${minutes}:0${seconds}`;
+    } else {
+        clock.innerHTML = `${minutes}:${seconds}`;
+    }
+}
+
 // Function to toggle cards
 function toggleCard(card){
     card.classList.toggle('open');
     card.classList.toggle('show');
  }
+
 // Function to push clickTarget into toggleCards array
 function addToggleCard(clickTarget) {
-    toggleCards.push(clickTarget);
-    console.log(toggleCards);
+    toggledCards.push(clickTarget);
 }
+
 // Function to check if the cards match
-function checkMatch() {
+function checkForMatch() {
+    const TOTAL_PAIRS = 8;
     if (
-        toggleCards[0].firstElementChild.className === toggleCards[1].firstElementChild.className
+        toggledCards[0].firstElementChild.className === 
+        toggledCards[1].firstElementChild.className
         ) { // Toggle match class
-            toggleCards[0].classList.toggle('match');
-            toggleCards[1].classList.toggle('match');  
+            toggledCards[0].classList.toggle('match');
+            toggledCards[1].classList.toggle('match'); 
+            toggledCards = [];
+            matched++; 
+            if (matched === TOTAL_PAIRS) {
+                gameOver();
+            }
+
     } else {
         setTimeout(() => {
-            toggleCard(toggleCards[0]);
-            toggleCard(toggleCards[1]);
-            toggleCards = [];
+            toggleCard(toggledCards[0]);
+            toggleCard(toggledCards[1]);
+            toggledCards = [];
     }, 1000);
+    }
 }
+// game over function
+function gameOver() {
+    stopClock();
+    toggleModal();
+    writeModalStats();   
 }
+
+// Stops the clock
+function stopClock() {
+    clearInterval(clockId);
+}
+
+// ---------- POP UP MODAL --------- //
+function toggleModal() {
+    const modal = document.querySelector('.modal_background');
+    modal.classList.toggle('hide');
+}
+toggleModal();
+
+function writeModalStats() {
+    const timeStat = document.querySelector('.modal_time');
+    const clockTime = document.querySelector('.clock').innerHTML;
+    const moveStat = document.querySelector('.modal_moves');
+    const starStat = document.querySelector('.modal_stars');
+    const stars = getStars();
+
+    timeStat.innerHTML = `Time = ${clockTime}`;
+    moveStat.innerHTML = `Moves = ${moves}`;
+    starStat.innerHTML = `Stars = ${stars}`;
+}
+
+// gets stars
+function getStars() {
+    stars = document.querySelectorAll('.stars li');
+    starCount = 0;
+    for (star of stars) {
+        if (star.style.display !== 'none') {
+            starCount++;
+        }
+    }
+    return starCount;
+}
+
 // Function that counts moves for scoreboard
 function addMove() {
     moves++;
     const movesText = document.querySelector('.moves');
     movesText.innerHTML = moves;
 }
-// Stars
+// Calculate stars for scoreboard
 function checkScore() {
     if (moves === 16 || moves === 24) {
-        removeStar();
+        hideStar();
     }
 }
-// Hides Stars
+// Hides the stars
 function hideStar() {
     const starList = document.querySelectorAll('.stars li');
     for (star of starList) {
@@ -122,27 +197,60 @@ function hideStar() {
         }
     }
 }
-// Clock functionality
-function startClock() {
-    clockId = setInterval(() => {
-        time++;
-        displayTime();
-        console.log(time);
-    }, 1000);
+
+// --------- MODAL BUTTONS--------- //
+
+// Cancel button
+document.querySelector('.modal_cancel').addEventListener('click' , () => {
+    toggleModal();
+});
+
+// Replay button
+document.querySelector('.modal_replay').addEventListener('click' , replayGame);
+
+// replay the game function
+function replayGame() {
+    resetGame();
+    toggleModal();
 }
-// stops the clock
-function stopClock() {
-    clearInterval(clockId);
+
+// resets the game when clicking on refresh button
+document.querySelector('.restart').addEventListener('click' , resetGame);
+
+function resetGame() {
+    resetClockAndTime();
+    resetMoves();
+    resetStars();
+    shuffleDeck();
 }
-// Displays the current time in the scoreboard
-function displayTime() {
-    const clock = document.querySelector('.clock');
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    if (seconds < 10) {
-        clock.innerHTML = `${minutes}:0${seconds}`;
-    } else {
-        clock.innerHTML = `${minutes}:${seconds}`;
+
+// Resets the clock
+function resetClockAndTime() {
+    stopClock();
+    clockOff = true;
+    time = 0;
+    displayTime();
+}
+
+// Resets moves
+function resetMoves() {
+    moves = 0;
+    document.querySelector('.moves').innerHTML = moves;
+}
+
+// Resets stars
+function resetStars() {
+    stars = 0;
+    const starList = document.querySelectorAll('.stars li');
+    for (star of starList) {
+        star.style.display = 'inline';
     }
 }
 
+// Resets all cards
+function resetCards() {
+    const cards = document.querySelectorAll('.deck li');
+    for (let card of cards) {
+        card.className = 'card';
+    }
+}
