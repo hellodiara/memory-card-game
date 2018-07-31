@@ -8,7 +8,11 @@ let toggleCards = []; // store all cards in an array
  *   - add each card's HTML to the page
  */
  function shuffleDeck() {
-    const cardsToShuffle = document.querySelectorAll('.deck li');
+    const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
+    const shuffledCards = shuffle(cardsToShuffle);
+    for (card of shuffledCards) {
+        deck.appendChild(card);
+    }
  }
  shuffleDeck();
 
