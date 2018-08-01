@@ -116,7 +116,11 @@ function checkForMatch() {
         toggledCards[1].firstElementChild.className
         ) { // Toggle match class
             toggledCards[0].classList.toggle('match');
+            toggledCards[0].classList.toggle('animated');
+            toggledCards[0].classList.toggle('bounce');
             toggledCards[1].classList.toggle('match'); 
+            toggledCards[1].classList.toggle('animated'); 
+            toggledCards[1].classList.toggle('bounce');
             toggledCards = [];
             matched++; 
             if (matched === TOTAL_PAIRS) {
