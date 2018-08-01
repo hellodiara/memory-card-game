@@ -1,10 +1,20 @@
 # Memory Card Game Project
 A Front-End JS/HTML/CSS Web app for Udacity Front-End Nannodegree
+
+### Play
 https://hellodiara.github.io/memory-card-game/
+* Clicking on tiles will flip them over so that you can see what they hide.
+* Your goal is to match two tiles of the same type at a time.
+* Then try to match all pairs while making minimum moves.
+* At the end of the game it will show how much time it took you, and rate your game base on the moves you made.
+* You can restart the game as many as you can by clicking on the refresh button.
+
+### Screenshot
+![Screenshot of Memory Card Game](https://github.com/hellodiara/memory-card-game/blob/master/img/memorycard_game.png)
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Project Instructions](#instructions)
 * [Project Requirements](#projectrequirements)
 
 ## Instructions
