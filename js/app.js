@@ -7,7 +7,7 @@ let clockOff = true;
 let time = 0;
 let clockId;
 let matched = 0;
-
+toggleModal(); // REMOVE after testing
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
