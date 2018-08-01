@@ -206,6 +206,7 @@ document.querySelector('.modal_cancel').addEventListener('click' , () => {
 // Replay button
 document.querySelector('.modal_replay').addEventListener('click' , replayGame);
 
+
 // replay the game function
 function replayGame() {
     resetGame();
@@ -216,6 +217,7 @@ function replayGame() {
 document.querySelector('.restart').addEventListener('click' , resetGame);
 
 function resetGame() {
+    toggledCards = [];
     resetClockAndTime();
     resetMoves();
     resetStars();
