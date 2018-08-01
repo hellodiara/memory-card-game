@@ -124,6 +124,7 @@ function checkForMatch() {
             toggledCards = [];
             matched++; 
             if (matched === TOTAL_PAIRS) {
+                console.log('yes');
                 setTimeout(gameOver, 10);
             }
 
@@ -222,6 +223,7 @@ document.querySelector('.restart').addEventListener('click' , resetGame);
 
 function resetGame() {
     toggledCards = [];
+    matched = 0;
     resetClockAndTime();
     resetMoves();
     resetStars();
