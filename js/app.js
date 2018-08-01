@@ -124,7 +124,7 @@ function checkForMatch() {
             toggledCards = [];
             matched++; 
             if (matched === TOTAL_PAIRS) {
-                gameOver();
+                setTimeout(gameOver, 10);
             }
 
     } else {
