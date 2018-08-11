@@ -15,7 +15,7 @@ https://hellodiara.github.io/memory-card-game/
 ## Table of Contents
 
 * [Project Instructions](#instructions)
-* [Project Requirements](#projectrequirements)
+* [Project Requirements](#project-requirements)
 
 ## Instructions
 
